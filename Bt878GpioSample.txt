@@ -1,0 +1,5 @@
+Conexant CX25878(a.k.a.Bt878) GPIO Driver, DLL, and Test Application.
+
+Copyright(c) 2020 Satoshi Hiruta.
+
+License: BSD 3-Clause License

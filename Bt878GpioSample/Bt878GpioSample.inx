@@ -1,0 +1,95 @@
+;
+; Bt878GpioSample.inf
+;
+;Conexant CX25878(a.k.a.Bt878) GPIO Driver
+;
+;Copyright(c) 2020 Satoshi Hiruta.
+;
+;License: BSD 3-Clause License
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=Media
+ClassGUID={4d36e96c-e325-11ce-bfc1-08002be10318}
+Provider=%ManufacturerName%
+CatalogFile=Bt878GpioSample.cat
+DriverVer= ; TODO: set DriverVer in stampinf property pages
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+Bt878GpioSample.sys  = 1,,
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NT$ARCH$
+
+[Standard.NT$ARCH$]
+%Bt878GpioSample.DeviceDesc%=Bt878GpioSample_Device, PCI\VEN_109E&DEV_036E&SUBSYS_00000000&REV_11
+%Bt878GpioSampleNull.DeviceDesc%=Bt878GpioSampleNull_Device, PCI\VEN_109E&DEV_0878&SUBSYS_00000000&REV_11
+
+[Bt878GpioSample_Device.NT]
+CopyFiles=Drivers_Dir
+
+[Drivers_Dir]
+Bt878GpioSample.sys
+
+;-------------- Service installation
+[Bt878GpioSample_Device.NT.Services]
+AddService = Bt878GpioSample,%SPSVCINST_ASSOCSERVICE%, Bt878GpioSample_Service_Inst
+
+; -------------- Bt878GpioSample driver install sections
+[Bt878GpioSample_Service_Inst]
+DisplayName    = %Bt878GpioSample.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\Bt878GpioSample.sys
+LoadOrderGroup = Extended Base
+
+[Bt878GpioSampleNull_Device.NT]
+
+[Bt878GpioSampleNull_Device.NT.Services]
+AddService = ,2		; null service install
+
+;
+;--- Bt878GpioSample_Device Coinstaller installation ------
+;
+
+[DestinationDirs]
+Bt878GpioSample_Device_CoInstaller_CopyFiles = 11
+
+[Bt878GpioSample_Device.NT.CoInstallers]
+AddReg=Bt878GpioSample_Device_CoInstaller_AddReg
+CopyFiles=Bt878GpioSample_Device_CoInstaller_CopyFiles
+
+[Bt878GpioSample_Device_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
+
+[Bt878GpioSample_Device_CoInstaller_CopyFiles]
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
+
+[SourceDisksFiles]
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with SourceDisksNames
+
+[Bt878GpioSample_Device.NT.Wdf]
+KmdfService =  Bt878GpioSample, Bt878GpioSample_wdfsect
+[Bt878GpioSample_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="Satoshi Hiruta"
+DiskName = "Bt878GpioSample Installation Disk"
+Bt878GpioSample.DeviceDesc = "Bt878GpioSample Device"
+Bt878GpioSampleNull.DeviceDesc = "Bt878GpioSample (NullDevice)"
+Bt878GpioSample.SVCDESC = "Bt878GpioSample Service"
