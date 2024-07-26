@@ -15,3 +15,5 @@ VisualStudio2013以降と適合するWDKが必要です。
 
 # License
 三条項BSDライセンス
+
+変更テスト１
