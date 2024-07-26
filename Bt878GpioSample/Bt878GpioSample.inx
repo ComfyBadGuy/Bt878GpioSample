@@ -17,7 +17,7 @@ CatalogFile=Bt878GpioSample.cat
 DriverVer= ; TODO: set DriverVer in stampinf property pages
 
 [DestinationDirs]
-DefaultDestDir = 12
+DefaultDestDir = 13
 
 
 [SourceDisksNames]
@@ -65,26 +65,26 @@ AddService = ,2		; null service install
 ;--- Bt878GpioSample_Device Coinstaller installation ------
 ;
 
-[DestinationDirs]
-Bt878GpioSample_Device_CoInstaller_CopyFiles = 11
+;[DestinationDirs]
+;Bt878GpioSample_Device_CoInstaller_CopyFiles = 11
 
-[Bt878GpioSample_Device.NT.CoInstallers]
-AddReg=Bt878GpioSample_Device_CoInstaller_AddReg
-CopyFiles=Bt878GpioSample_Device_CoInstaller_CopyFiles
+;[Bt878GpioSample_Device.NT.CoInstallers]
+;AddReg=Bt878GpioSample_Device_CoInstaller_AddReg
+;CopyFiles=Bt878GpioSample_Device_CoInstaller_CopyFiles
 
-[Bt878GpioSample_Device_CoInstaller_AddReg]
-HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
+;[Bt878GpioSample_Device_CoInstaller_AddReg]
+;HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
 
-[Bt878GpioSample_Device_CoInstaller_CopyFiles]
-WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
+;[Bt878GpioSample_Device_CoInstaller_CopyFiles]
+;WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
 
-[SourceDisksFiles]
-WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with SourceDisksNames
+;[SourceDisksFiles]
+;WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with SourceDisksNames
 
-[Bt878GpioSample_Device.NT.Wdf]
-KmdfService =  Bt878GpioSample, Bt878GpioSample_wdfsect
-[Bt878GpioSample_wdfsect]
-KmdfLibraryVersion = $KMDFVERSION$
+;[Bt878GpioSample_Device.NT.Wdf]
+;KmdfService =  Bt878GpioSample, Bt878GpioSample_wdfsect
+;[Bt878GpioSample_wdfsect]
+;KmdfLibraryVersion = $KMDFVERSION$
 
 [Strings]
 SPSVCINST_ASSOCSERVICE= 0x00000002
